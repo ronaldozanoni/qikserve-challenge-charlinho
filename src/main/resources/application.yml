@@ -1,0 +1,16 @@
+server:
+  port: 8081
+
+info:
+  app:
+    description: QikServe Engineer Technical Test
+    name: QikServe Challenge
+    version: 1.0.0
+
+app:
+  wiremockUrl: http://localhost:8080
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
