@@ -1,5 +1,6 @@
 package com.qikserve.challenge.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.qikserve.challenge.enums.PromotionType;
 import lombok.*;
 
@@ -14,8 +15,12 @@ import lombok.*;
 public class Promotion {
 
     private String id;
-    private Integer amount;
-    private Integer freeQty;
+    private int amount;
+
+    @JsonProperty("free_qty")
+    private int freeQty;
     private PromotionType type;
-    private Integer requiredQty;
+
+    @JsonProperty("required_qty")
+    private int requiredQty;
 }
