@@ -121,3 +121,5 @@ fabric.properties
 .idea/sonarlint/
 
 .DS_Store
+.idea/
+challenge.iml
