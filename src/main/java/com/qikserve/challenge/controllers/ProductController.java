@@ -1,5 +1,6 @@
 package com.qikserve.challenge.controllers;
 
+import com.qikserve.challenge.dtos.ProductResponse;
 import com.qikserve.challenge.models.Product;
 import com.qikserve.challenge.services.ProductService;
 import io.swagger.annotations.Api;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,6 +23,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @Api(value = "Product")
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
@@ -36,9 +39,9 @@ public class ProductController {
             @ApiResponse(code = 200, message = "Return products"),
             @ApiResponse(code = 500, message = "Exception on get products"),
     })
-    @GetMapping(value= {"/products"}, produces= MediaType.APPLICATION_JSON_VALUE)
-    public List<Product> getProducts() {
-        return productService.getProducts();
+    @GetMapping(produces= MediaType.APPLICATION_JSON_VALUE)
+    public List<ProductResponse> getProducts() {
+        return ProductResponse.parse(productService.getProducts());
     }
 
     /**
@@ -52,7 +55,7 @@ public class ProductController {
             @ApiResponse(code = 200, message = "Return a product by id"),
             @ApiResponse(code = 500, message = "Exception on get product"),
     })
-    @GetMapping(value= {"/products/{id}"}, produces= MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value= {"/{id}"}, produces= MediaType.APPLICATION_JSON_VALUE)
     public Product getProduct(@PathVariable String id) {
         log.info("Received query of product by id {}", id);
         return productService.getProduct(id);

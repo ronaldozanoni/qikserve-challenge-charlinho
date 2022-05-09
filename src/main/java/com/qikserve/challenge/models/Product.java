@@ -18,6 +18,5 @@ public class Product {
     private String id;
     private String name;
     private BigDecimal price;
-
     private List<Promotion> promotions;
 }
