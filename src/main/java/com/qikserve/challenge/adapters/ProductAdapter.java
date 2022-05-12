@@ -4,6 +4,9 @@ import com.qikserve.challenge.models.Product;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -45,6 +48,8 @@ public class ProductAdapter {
                 .uri("/products/" + id)
                 .retrieve()
                 .bodyToFlux(Product.class)
+                .onErrorResume(WebClientResponseException.class,
+                        ex -> ex.getRawStatusCode() == 404 ? Flux.empty() : Mono.error(ex))
                 .blockFirst();
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Basket {
 
-    private int userId;
+    private Integer userId;
     private BigDecimal rawTotal = BigDecimal.ZERO;
     private BigDecimal totalPromos = BigDecimal.ZERO;
     private BigDecimal totalPayable = BigDecimal.ZERO;

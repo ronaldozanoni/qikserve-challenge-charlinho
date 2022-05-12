@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.qikserve.challenge.enums.PromotionType;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 /**
  * The type Promotion.
  */
@@ -19,8 +21,11 @@ public class Promotion {
 
     @JsonProperty("free_qty")
     private int freeQty;
+
     private PromotionType type;
 
     @JsonProperty("required_qty")
     private int requiredQty;
+
+    private BigDecimal price;
 }
