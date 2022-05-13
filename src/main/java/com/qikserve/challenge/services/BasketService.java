@@ -3,12 +3,12 @@ package com.qikserve.challenge.services;
 import com.qikserve.challenge.dtos.BasketRequest;
 import com.qikserve.challenge.enums.PromotionType;
 import com.qikserve.challenge.exceptions.NotFoundException;
+import com.qikserve.challenge.exceptions.ServerException;
 import com.qikserve.challenge.exceptions.UnauthorizedException;
 import com.qikserve.challenge.models.Basket;
 import com.qikserve.challenge.models.Product;
 import com.qikserve.challenge.models.Promotion;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -28,6 +28,7 @@ public class BasketService {
         }
 
         int amount = basketRequest.getAmount();
+        String promotionCode = basketRequest.getPromotionCode();
         Product product = productService.getProduct(basketRequest.getProductId());
 
         basket.setUserId(basketRequest.getUserId());
@@ -52,6 +53,10 @@ public class BasketService {
     }
 
     public Basket checkout(int userId) {
+        if (basket.getUserId() == null) {
+            throw new ServerException("Basket is null, please add some item in basket");
+        }
+
         if (basket.getUserId() != userId) {
             throw new UnauthorizedException("User in basket is different!");
         }

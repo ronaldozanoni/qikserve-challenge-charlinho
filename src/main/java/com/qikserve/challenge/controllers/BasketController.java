@@ -4,7 +4,6 @@ import com.qikserve.challenge.dtos.BasketRequest;
 import com.qikserve.challenge.dtos.BasketResponse;
 import com.qikserve.challenge.dtos.CheckoutRequest;
 import com.qikserve.challenge.dtos.CheckoutResponse;
-import com.qikserve.challenge.models.Basket;
 import com.qikserve.challenge.services.BasketService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,11 +43,6 @@ public class BasketController {
             @ApiResponse(code = 500, message = "Exception on finish request"),
     })
     public CheckoutResponse checkout(@RequestBody CheckoutRequest checkoutRequest) {
-        Basket basket = basketService.checkout(checkoutRequest.getUserId());
-
-        return CheckoutResponse.builder()
-                    .totalPaid(basket.getTotalPayable())
-                    .message("Order placed successfully!")
-                .build();
+        return CheckoutResponse.parse(basketService.checkout(checkoutRequest.getUserId()));
     }
 }

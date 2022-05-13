@@ -2,9 +2,7 @@ package com.qikserve.challenge.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.qikserve.challenge.models.Basket;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,6 +10,9 @@ import java.util.stream.Collectors;
 
 @Builder
 @Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class BasketResponse {
 
     @JsonProperty("raw_value")
@@ -29,6 +30,8 @@ public class BasketResponse {
     @Getter
     @Setter
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Content {
         private int amount;
         private BigDecimal price;
